@@ -5,6 +5,6 @@
     <p>Genre: {{ movie.genre }}</p>
     <p>Duration: {{ movie.duration }}</p>
     <p>Rating: {{ movie.rating }}</p>
-    <a href="{% url 'seat_map' movie.id %}">Book Tickets</a>
+    <a href="{% url 'seat_map' %}">Book Tickets</a>
   </div>
 {% endfor %}

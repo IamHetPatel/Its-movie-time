@@ -12,12 +12,11 @@
         <div class="seats">
             {% for row in seats %}
                 <div class="row">
-                    <span class="row-label">{{ row.row }}</span>
-                    {% for seat in row.seats %}
+                    {% for seat in seats %}
                         {% if seat.booked %}
-                            <div class="seat booked" data-seat="{{ seat.id }}">{{ seat.number }}</div>
+                            <div class="seat booked" data-seat="{{ seat.id }}"></div>
                         {% else %}
-                            <div class="seat available" data-seat="{{ seat.id }}">{{ seat.number }}</div>
+                            <div class="seat available" data-seat="{{ seat.id }}">{{ seat.row }}{{ seat.number }}</div>
                         {% endif %}
                     {% endfor %}
                 </div>
@@ -26,8 +25,26 @@
     </div>
     <form id="booking-form" method="post" action="{% url 'book_seat' %}">
         {% csrf_token %}
-        <input type="hidden" id="selected-seat" name="seat" value="">
-        <button type="submit" id="book-btn" disabled>Book Seat</button>
+        <input id="selected-seat-row" name="row" value="">
+        <input id="selected-seat-number" name="number" value="">
+        <button type="submit" id="book-btn">Book Seat</button>
     </form>
     <script src="{% static 'js/seat_map.js' %}"></script>
+    <script>
+        const seats = document.querySelectorAll('.seat.available');
+        seats.forEach(seat => {
+            seat.addEventListener('click', () => {
+                const row = seat.dataset.row;
+                const number = seat.dataset.number;
+                document.getElementById('selected-seat-row').value = row;
+                document.getElementById('selected-seat-number').value = number;
+                seats.forEach(s => s.classList.remove('selected'));
+                seat.classList.add('selected');
+                document.getElementById('book-btn').disabled = false;
+            });
+        });
+    </script>
 {% endblock %}
+
+
+

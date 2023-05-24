@@ -83,14 +83,15 @@ def seat_map(request):
 @login_required
 def book_seat(request):
     if request.method == 'POST':
-        seat_id = request.POST.get('seat')
-        seat = Seat.objects.get(id=seat_id)
+        seat_row = request.POST.get('row')
+        seat_number = request.POST.get('number')
+        seat = Seat.objects.get(row = seat_row, number = seat_number)
         if seat.booked:
             # Seat already booked
             return redirect('seat_map')
         else:
             seat.booked = True
             seat.save()
-            return redirect('booking_confirmation.html')
+            return redirect('booking_confirmation')
     else:
         return redirect('movie_list')
