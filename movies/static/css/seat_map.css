@@ -1,0 +1,32 @@
+/* CSS styles for seat map */
+
+.seat-map {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .seat {
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    background-color: #e9e9e9;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .seat.selected {
+    background-color: #5cb85c;
+    color: white;
+  }
+  
+  .seat.booked {
+    background-color: #f0ad4e;
+    cursor: not-allowed;
+  }
+  
+  

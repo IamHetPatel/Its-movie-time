@@ -1,0 +1,10 @@
+<!-- Movie list template -->
+{% for movie in movies %}
+  <div>
+    <h3>{{ movie.title }}</h3>
+    <p>Genre: {{ movie.genre }}</p>
+    <p>Duration: {{ movie.duration }}</p>
+    <p>Rating: {{ movie.rating }}</p>
+    <a href="{% url 'seat_map' movie.id %}">Book Tickets</a>
+  </div>
+{% endfor %}

@@ -1,0 +1,7 @@
+<!-- Ticket booking template -->
+<h3>Book Tickets for {{ movie.title }}</h3>
+<form method="POST" action="">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Book</button>
+</form>

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Seat Map{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/seat_map.css' %}">
+{% endblock %}
+
+{% block content %}
+    <h1>Seat Map</h1>
+    <div id="seat-map">
+        <div class="screen">Screen</div>
+        <div class="seats">
+            {% for row in seats %}
+                <div class="row">
+                    <span class="row-label">{{ row.row }}</span>
+                    {% for seat in row.seats %}
+                        {% if seat.booked %}
+                            <div class="seat booked" data-seat="{{ seat.id }}">{{ seat.number }}</div>
+                        {% else %}
+                            <div class="seat available" data-seat="{{ seat.id }}">{{ seat.number }}</div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <form id="booking-form" method="post" action="{% url 'book_seat' %}">
+        {% csrf_token %}
+        <input type="hidden" id="selected-seat" name="seat" value="">
+        <button type="submit" id="book-btn" disabled>Book Seat</button>
+    </form>
+    <script src="{% static 'js/seat_map.js' %}"></script>
+{% endblock %}
